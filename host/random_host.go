@@ -8,21 +8,20 @@ import (
 	"strconv"
 )
 
-const MaxStackSize = 1000
-
 type RandomNumberReceiver struct {
-	numbers *Stack
-	key string
+	numbers      *Stack
+	key          string
+	maxStackSize int
 }
 
-func NewRandomNumberReceiver() *RandomNumberReceiver {
-	return &RandomNumberReceiver{NewStack(), ""}
+func NewRandomNumberReceiver(maxStackSize int) *RandomNumberReceiver {
+	return &RandomNumberReceiver{NewStack(), "", maxStackSize}
 }
 
 func (r *RandomNumberReceiver) ListenAndServer(addr, key string) {
 	r.key = key
 	router := lars.New()
-	router.Post("/" + key, r.postNumbers)
+	router.Post("/"+key, r.postNumbers)
 	router.Get("/numbers", r.getNumbers)
 	router.Get("/random", r.getRandom)
 	router.Get("/count", r.getNumbersCount)
@@ -53,7 +52,7 @@ func (r *RandomNumberReceiver) postNumbers(c lars.Context) {
 	dataStr := string(data)
 	// remove redundant quotation marks if exists
 	if dataStr[0] == '"' && dataStr[dataLen-1] == '"' {
-		data = []byte(dataStr[1:dataLen-1])
+		data = []byte(dataStr[1 : dataLen-1])
 	}
 	var keys []int
 	// unmarshal the json into the temporary holder
@@ -63,7 +62,7 @@ func (r *RandomNumberReceiver) postNumbers(c lars.Context) {
 		c.Response().Write([]byte("invalid json"))
 		return
 	}
-	if len(keys) + r.numbers.Size() > MaxStackSize {
+	if len(keys)+r.numbers.Size() > r.maxStackSize {
 		r.numbers.Clear()
 	}
 	// write new numbers to the cache
