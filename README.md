@@ -1,6 +1,6 @@
 # truerandom-mirror
 
-```
+```Bash
 go get -u github.com/kisulken/truerandom-mirror
 ```
 
@@ -11,6 +11,11 @@ Simple API server that has only four end-points:
 4. POST **/yourSecretHandler*** updates the cache with new numbers
 
 _yourSecretHandler* is a key provided as a flag with the program launch._
+
+Example of use:
+```Bash
+$ truerandom-mirror --key="mySecrectHandler" -port=7890 -stack=1000
+```
 
 [Here is a python client](https://github.com/kisulken/videorand) that generates random numbers from the video input
 and submits them to a server over HTTP.
