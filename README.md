@@ -1,7 +1,7 @@
 # truerandom-mirror
 
-```Bash
-go get -u github.com/kisulken/truerandom-mirror
+```bash
+$ go get -u github.com/kisulken/truerandom-mirror
 ```
 
 Simple API server that has only four end-points:
@@ -13,7 +13,7 @@ Simple API server that has only four end-points:
 _yourSecretHandler* is a key provided as a flag with the program launch._
 
 Example of use:
-```Bash
+```bash
 $ truerandom-mirror --key="mySecrectHandler" -port=7890 -stack=1000
 ```
 
