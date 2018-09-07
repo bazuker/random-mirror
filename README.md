@@ -9,9 +9,12 @@ Simple API server that has only four end-points:
 _yourSecretHandler* is a key provided as a flag with the program launch._
 
 ## Installation
+Build from the source
 ```bash
+$ go get -u github.com/go-playground/lars
 $ go get -u github.com/kisulken/truerandom-mirror
 ```
+Or check out [pre-built binaries](https://github.com/kisulken/truerandom-mirror/releases)
 
 ## Example of use
 ```bash
